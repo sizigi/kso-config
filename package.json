@@ -1,0 +1,66 @@
+{
+  "name": "kso-config",
+  "productName": "kso-config",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "lint": "tslint src"
+  },
+  "keywords": [],
+  "author": "coryli",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": "kso_config"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "ksoconfig"
+      }
+    }
+  },
+  "dependencies": {
+    "@types/electron": "^1.4.30",
+    "@types/electron-devtools-installer": "^2.0.2",
+    "@types/react": "^0.14.55",
+    "@types/react-dom": "^0.14.20",
+    "electron-compile": "^6.4.1",
+    "electron-devtools-installer": "^2.0.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "tslib": "^1.4.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.5.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-prebuilt-compile": "1.6.8",
+    "tslint": "^4.2.0",
+    "typescript": "~2.1.4"
+  }
+}
