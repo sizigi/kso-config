@@ -13,14 +13,14 @@ export const enum Modkey {
   RGui = 1 << 7,
 }
 
-export interface IHotkeyState {
+export interface IHotkeyInputState {
   keyString: string;
   keyCount: number;
   keyList: Array<number>;
   modState: Modkey;
 }
 
-export class Hotkey extends React.Component<{}, IHotkeyState> {
+export class HotkeyInput extends React.Component<{}, IHotkeyInputState> {
   constructor() {
     super();
     this.state = {
@@ -52,7 +52,7 @@ export class Hotkey extends React.Component<{}, IHotkeyState> {
     }
   }
 
-  private setStateWithKeyString(state : IHotkeyState) : void {
+  private setStateWithKeyString(state : IHotkeyInputState) : void {
     const sb: Array<string> = [];
 
     if(state.modState & Modkey.LAlt) sb.push('Alt');
