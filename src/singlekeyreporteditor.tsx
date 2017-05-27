@@ -38,8 +38,8 @@ export class SingleKeyReportEditor extends React.Component<ISingleKeyReportEdito
         <Switch label="Advanced" checked={this.displayState.showAdvancedState} onChange={this.toggleDisplayState.bind(this)}/>
         <Collapse isOpen={this.displayState.showAdvancedState}>
           <ByteInput
-            value={kr.rawData}
-            onChange={(data) => {kr.rawData = data}}/>
+            value={kr.packet}
+            onChange={(data) => {kr.packet = data}}/>
           <Switch label="Ctrl" checked={kr.ctrlState} onChange={() => kr.ctrlState = !kr.ctrlState}/>
           <Switch label="Shift" checked={kr.shiftState} onChange={() => kr.shiftState = !kr.shiftState}/>
           <Switch label="Alt" checked={kr.altState} onChange={() => kr.altState = !kr.altState}/>

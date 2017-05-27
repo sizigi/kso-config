@@ -24,7 +24,7 @@ export class App extends React.Component<undefined, undefined> {
   render() {
     return (
       <div>
-        <HotkeyInput />
+        <HotkeyInput keyReport={keyReport} />
         <SingleKeyReportEditor keyReport={keyReport} />
       </div>
     );
