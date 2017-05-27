@@ -1,4 +1,4 @@
-declare module 'react-maskedinput' {
+declare module 'react-maskedinput-updated' {
   import { ComponentClass, HTMLAttributes } from "react";
   export = MaskedInput;
 

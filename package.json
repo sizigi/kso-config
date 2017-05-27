@@ -53,14 +53,17 @@
     "@types/react-addons-css-transition-group": "^15.0.2",
     "@types/react-dom": "^15.5.0",
     "classnames": "^2.2.5",
+    "create-react-class": "^15.5.3",
     "electron-compile": "^6.4.1",
     "electron-devtools-installer": "^2.0.1",
     "keycode": "^2.1.9",
+    "mobx": "^3.1.10",
+    "mobx-react": "^4.1.8",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.5.2",
     "react-dom": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-maskedinput": "^3.3.4",
+    "react-maskedinput-updated": "^1.0.3",
     "tslib": "^1.4.0"
   },
   "devDependencies": {

@@ -1,16 +1,31 @@
 import * as React from 'react';
 
-import { Button } from '@blueprintjs/core';
-import { HotkeyInput } from './hotkey';
-import { ByteInput } from './byteinput';
+import { FocusStyleManager } from '@blueprintjs/core';
 
+import {SingleKeyReportEditor} from './singlekeyreporteditor'
+
+import {observer} from "mobx-react";
+import {HotkeyInput} from './hotkey';
+
+import {SingleHidKeyReport} from './hidreport';
+
+
+FocusStyleManager.onlyShowFocusOnTabs();
+// let testData = observable({
+//   data: new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF]),
+//   advancedToggle: true,
+// });
+
+
+let keyReport = new SingleHidKeyReport();
+
+@observer
 export class App extends React.Component<undefined, undefined> {
   render() {
     return (
       <div>
         <HotkeyInput />
-        <ByteInput />
-        <Button>Upload</Button>
+        <SingleKeyReportEditor keyReport={keyReport} />
       </div>
     );
   }

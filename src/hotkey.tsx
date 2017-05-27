@@ -1,17 +1,6 @@
 import * as React from 'react';
 import * as keycode from 'keycode';
-
-export const enum Modkey {
-  None = 0,
-  LCtrl = 1 << 0,
-  LShift = 1 << 1,
-  LAlt = 1 << 2,
-  LGui = 1 << 3,
-  RCtrl = 1 << 4,
-  RShift = 1 << 5,
-  RAlt = 1 << 6,
-  RGui = 1 << 7,
-}
+import {Modkey} from './hidreport';
 
 export interface IHotkeyInputState {
   keyString: string;
@@ -52,20 +41,20 @@ export class HotkeyInput extends React.Component<{}, IHotkeyInputState> {
     }
   }
 
-  private setStateWithKeyString(state : IHotkeyInputState) : void {
+  private setStateWithKeyString(state: IHotkeyInputState): void {
     const sb: Array<string> = [];
 
-    if(state.modState & Modkey.LAlt) sb.push('Alt');
-    if(state.modState & Modkey.LCtrl) sb.push('Ctrl');
-    if(state.modState & Modkey.LGui) sb.push('Gui');
-    if(state.modState & Modkey.LShift) sb.push('⇧');
+    if (state.modState & Modkey.LAlt) sb.push('Alt');
+    if (state.modState & Modkey.LCtrl) sb.push('Ctrl');
+    if (state.modState & Modkey.LGui) sb.push('Gui');
+    if (state.modState & Modkey.LShift) sb.push('⇧');
 
-    if(state.modState & Modkey.RCtrl) sb.push('RCtrl');
-    if(state.modState & Modkey.RAlt) sb.push('RAlt');
-    if(state.modState & Modkey.RGui) sb.push('RGui');
-    if(state.modState & Modkey.RShift) sb.push('RShift');
+    if (state.modState & Modkey.RCtrl) sb.push('RCtrl');
+    if (state.modState & Modkey.RAlt) sb.push('RAlt');
+    if (state.modState & Modkey.RGui) sb.push('RGui');
+    if (state.modState & Modkey.RShift) sb.push('RShift');
 
-    for(let key of state.keyList) {
+    for (let key of state.keyList) {
       let str = keycode(key);
       sb.push(str.charAt(0).toUpperCase() + str.slice(1));
     }
@@ -77,11 +66,11 @@ export class HotkeyInput extends React.Component<{}, IHotkeyInputState> {
   private handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     event.preventDefault();
 
-    let state = {...this.state};
+    let state = { ...this.state };
     const [mod, key] = this.getKey(event);
 
     // need to reset?
-    if(state.keyCount <= 0) {
+    if (state.keyCount <= 0) {
       state.keyCount = 0;
       state.keyList = [];
       state.modState = Modkey.None;
@@ -89,13 +78,13 @@ export class HotkeyInput extends React.Component<{}, IHotkeyInputState> {
     }
 
     // valid new normal key
-    if(key != null && state.keyList.indexOf(key) == -1) {
+    if (key != null && state.keyList.indexOf(key) == -1) {
       state.keyList = [...state.keyList, key];
       state.keyCount++;
     }
 
     // valid new modifier key
-    if(mod != Modkey.None && (mod & state.modState) === 0) {
+    if (mod != Modkey.None && (mod & state.modState) === 0) {
       state.modState = mod | state.modState;
       state.keyCount++;
     }
@@ -117,6 +106,7 @@ export class HotkeyInput extends React.Component<{}, IHotkeyInputState> {
       <div>
         <h1>Test</h1>
         <input
+          tabIndex={-1}
           type="text"
           value={this.state.keyString}
           onKeyDown={this.handleKeyDown.bind(this)}
