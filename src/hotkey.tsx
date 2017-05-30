@@ -102,16 +102,15 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, void> {
 
   public render() {
     return (
-      <div>
-        <h1>Test</h1>
-        <input
-          tabIndex={-1}
-          type="text"
-          value={this.keyString}
-          onKeyDown={this.handleKeyDown.bind(this)}
-          onKeyUp={this.handleKeyUp.bind(this)}
-        />
-      </div>
+      <input
+        className="pt-large pt-input pt-fill"
+        tabIndex={-1}
+        type="text"
+        value={this.keyString}
+        placeholder="Type hotkey..."
+        onKeyDown={this.handleKeyDown.bind(this)}
+        onKeyUp={this.handleKeyUp.bind(this)}
+      />
     )
   }
 }

@@ -19,6 +19,7 @@ function stringToByteArray(data: string): Uint8Array {
 export interface IByteInputProps {
   value: Uint8Array;
   onChange?(data: Uint8Array) : void;
+  style? : any;
 }
 
 export interface IByteInputState {
@@ -32,6 +33,11 @@ export class ByteInput extends React.Component<IByteInputProps, IByteInputState>
       valid: true,
     }
   }
+
+  public componentWillReceiveProps() {
+    this.setState({valid: true});
+  }
+
 
   private updateState(value: string) {
     const clean = value.replace(/ /g, '');
@@ -54,7 +60,8 @@ export class ByteInput extends React.Component<IByteInputProps, IByteInputState>
   public render() {
     return (
       <MaskedInput
-        className={classNames('pt-input', { 'pt-intent-danger': !this.state.valid })}
+        style={this.props.style}
+        className={classNames('pt-input', 'pt-monospace-text', 'pt-fill', { 'pt-intent-danger': !this.state.valid })}
         mask="XX XX XX XX XX XX XX XX"
         value={byteArrayToString(this.props.value)}
         onChange={this.handleInputChange.bind(this)}
