@@ -15,6 +15,7 @@ import { observer } from 'mobx-react';
 import { SingleHidKeyReport } from './hidreport';
 import { SingleKeyReportEditor } from './singlekeyreporteditor';
 
+
 FocusStyleManager.onlyShowFocusOnTabs();
 
 let keyReport = new SingleHidKeyReport();
@@ -27,39 +28,40 @@ export class App extends React.Component<undefined, undefined> {
         style={{
           backgroundColor: Colors.LIGHT_GRAY5,
           height: '100vh',
-          display: 'flex'
+          display: 'flex',
         }}
       >
         <nav style={{ flex: 1, backgroundColor: Colors.LIGHT_GRAY1, height: '100vh' }}>
-          <div style={{ height: 'calc(100vh - 50px)' }} data-simplebar>
-          <div className="p-t-lg">
-            <NonIdealState
-              visual="warning-sign"
-              title="No devices found"
-              description="No supported devices were detected. Try plugging one in." />
+          <div className='pt-navbar pt-dark kso-navbar'>
+            <div className="pt-navbar-group pt-align-left">
+              <div className="pt-navbar-heading pt-text-muted">keyswitch.one</div>
+            </div>
+            <div className="pt-navbar-group pt-align-right">
+              <button className="pt-button pt-minimal pt-icon-refresh"></button>
+              {/*<button className="pt-button pt-minimal pt-icon-cog"></button>*/}
+            </div>
           </div>
-            {/*<div className="kso-tab">
+          <div style={{ height: 'calc(100vh - 75px)' }} data-simplebar>
+            <div className="p-t-lg">
+              <NonIdealState
+                visual="warning-sign"
+                title="No devices found"
+                description="No supported devices were detected. Try plugging one in." />
+            </div>
+            {/*<div className="kso-tab active">
               <img src="http://placehold.it/48x48" style={{ borderRadius: 48, marginRight: 20 }}></img>
               <div style={{ paddingTop: 10 }}>
                 <h4>Help Key</h4>
                 <h6 className="pt-text-muted">Key: F1</h6>
               </div>
             </div>
-            <div className="kso-tab active">
+            <div className="kso-tab">
               <img src="http://placehold.it/48x48" style={{ borderRadius: 48, marginRight: 20 }}></img>
               <div style={{ paddingTop: 10 }}>
                 <h4>Help Key</h4>
                 <h6 className="pt-text-muted">Key: F1</h6>
               </div>
             </div>*/}
-          </div>
-          <div className='pt-navbar pt-dark'>
-            <div className="pt-navbar-group pt-align-left">
-              <div className="pt-navbar-heading pt-text-muted">keyswitch.one</div>
-            </div>
-            <div className="pt-navbar-group pt-align-right">
-              <button className="pt-button pt-minimal pt-icon-refresh"></button>
-            </div>
           </div>
         </nav>
 

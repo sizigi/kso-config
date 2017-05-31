@@ -14,8 +14,7 @@
             },
             // runtimeArgs will be passed directly to your Electron application
             "runtimeArgs": [
-                "foo",
-                "bar"
+                // "--list"
             ],
             "cwd": "${workspaceRoot}"
         }

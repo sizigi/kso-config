@@ -1,6 +1,17 @@
-import { app, BrowserWindow } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { app, BrowserWindow} from 'electron';
+import { argv } from 'yargs';
+import { Colors } from '@blueprintjs/core';
+import { devices } from 'node-hid';
 import { enableLiveReload } from 'electron-compile';
+
+// app.setName("KSO Config")
+
+if (argv.list) {
+  console.log(devices());
+  process.exit(0);
+}
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,14 +19,16 @@ let mainWindow: Electron.BrowserWindow | null = null;
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 
-if (isDevMode) enableLiveReload({strategy: 'react-hmr'});
+if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    backgroundColor: Colors.LIGHT_GRAY5,
     width: 800,
     height: 600,
-    title: "KSO-Config",
+    title: "KSO Config",
+    titleBarStyle: "hidden-inset",
   });
 
   // and load the index.html of the app.
@@ -35,6 +48,7 @@ const createWindow = async () => {
     mainWindow = null;
   });
 };
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

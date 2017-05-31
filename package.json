@@ -1,6 +1,6 @@
 {
   "name": "kso-config",
-  "productName": "kso-config",
+  "productName": "KSO Config",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.ts",
@@ -11,7 +11,7 @@
     "lint": "tslint src"
   },
   "keywords": [],
-  "author": "coryli",
+  "author": "Sizigi Studios",
   "license": "MIT",
   "config": {
     "forge": {
@@ -48,10 +48,12 @@
     "@types/classnames": "^2.2.0",
     "@types/electron": "^1.4.30",
     "@types/electron-devtools-installer": "^2.0.2",
+    "@types/node-hid": "^0.5.1",
     "@types/pure-render-decorator": "^0.2.27",
     "@types/react": "^15.0.25",
     "@types/react-addons-css-transition-group": "^15.0.2",
     "@types/react-dom": "^15.5.0",
+    "@types/yargs": "^6.6.0",
     "classnames": "^2.2.5",
     "create-react-class": "^15.5.3",
     "electron-compile": "^6.4.1",
@@ -66,7 +68,8 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-maskedinput-updated": "^1.0.3",
     "simplebar": "^2.4.1",
-    "tslib": "^1.4.0"
+    "tslib": "^1.4.0",
+    "yargs": "^8.0.1"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

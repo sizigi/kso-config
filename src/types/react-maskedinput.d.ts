@@ -1,6 +1,5 @@
 declare module 'react-maskedinput-updated' {
   import { ComponentClass, HTMLAttributes } from "react";
-  export = MaskedInput;
 
   const MaskedInput: MaskedInput;
   type MaskedInput = ComponentClass<MaskedInput.MaskedInputProps>;

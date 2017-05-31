@@ -1,12 +1,28 @@
+@import "spacers"
+
 html, body
   height: 100%
 
-$spacer: 20px
-$spacer-x: $spacer
-$spacer-y: $spacer
-$grid-gutter-width: 20px
+@keyframes fadein
+  from
+    opacity: 0
+  to
+    opacity: 1
 
-@import "spacers"
+.kso-navbar
+  height: 75px !important
+  padding-top: 25px !important
+  -webkit-app-region: drag
+
+#App
+  /* Disable text selection, or your app will feel like a web page */
+  -webkit-user-select: none
+  cursor: default
+
+  /* Smoother startup */
+  animation: fadein 0.5s
+
+
 
 .kso-tab
   padding: 10px
