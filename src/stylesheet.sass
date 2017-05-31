@@ -1,2 +1,26 @@
 html, body
   height: 100%
+
+$spacer: 20px
+$spacer-x: $spacer
+$spacer-y: $spacer
+$grid-gutter-width: 20px
+
+@import "spacers"
+
+.kso-tab
+  padding: 10px
+  background-color: #D8E1E8
+  transition: background-color 0.2s ease
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  &:hover
+    background-color: #EBF1F5
+
+  &.active
+    background-color: #F5F8FA
+    border-right: 8px solid
+    border-right-color: #137CBD
+
