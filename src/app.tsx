@@ -24,6 +24,8 @@ import { MainToaster } from './toaster';
 import { observer } from 'mobx-react';
 import { SingleHidKeyReport } from './hidreport';
 import { SingleKeyReportEditor } from './singlekeyreporteditor';
+import { ipcRenderer } from 'electron';
+
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -77,7 +79,12 @@ export class App extends React.Component<undefined, undefined> {
 
   constructor() {
     super()
+    ipcRenderer.on('usb:change', this.onUsbChange);
     this.store = new AppStore();
+  }
+
+  private onUsbChange() : void {
+    console.log('Change Event');
   }
 
   render() {
@@ -166,7 +173,7 @@ export class App extends React.Component<undefined, undefined> {
               <Tab2 id="macro" title="Macro" />
               <Tabs2.Expander />
               <Button iconName="help" className="pt-intent-primary pt-minimal" />
-              <Dialog iconName="help" isOpen={true} title="Help">
+              <Dialog iconName="help" isOpen={false} title="Help">
                 <div className="pt-dialog-body">
                   <h5>Keypress</h5>
                   <p>The keypress setting sends a keydown when the switch is depressed,

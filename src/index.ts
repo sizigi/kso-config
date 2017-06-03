@@ -1,27 +1,33 @@
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { app, BrowserWindow} from 'electron';
+import { app, BrowserWindow } from 'electron';
 import { argv } from 'yargs';
 import { Colors } from '@blueprintjs/core';
 import { devices } from 'node-hid';
 import { enableLiveReload } from 'electron-compile';
 
-// app.setName("KSO Config")
+import * as usbDetect from 'usb-detection';
 
 if (argv.list) {
   console.log(devices());
   process.exit(0);
 }
 
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: Electron.BrowserWindow | null = null;
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
-
 if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
+usbDetect.on('change', function (device) {
+  if (mainWindow != null) {
+    mainWindow.webContents.send('usb:change', device);
+  }
+});
+
+
 const createWindow = async () => {
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     backgroundColor: Colors.LIGHT_GRAY5,
@@ -70,6 +76,10 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+app.on('quit', () => {
+  usbDetect.stopMonitoring();
 });
 
 // In this file you can include the rest of your app's specific main process

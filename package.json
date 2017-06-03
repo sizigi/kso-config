@@ -13,6 +13,10 @@
   "keywords": [],
   "author": "Sizigi Studios",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sizigi/kso-config"
+  },
   "config": {
     "forge": {
       "make_targets": {
@@ -71,6 +75,7 @@
     "react-transition-group": "^1.1.3",
     "simplebar": "^2.4.1",
     "tslib": "^1.4.0",
+    "usb-detection": "^1.4.0",
     "yargs": "^8.0.1"
   },
   "devDependencies": {
