@@ -53,6 +53,7 @@
     "@types/react": "^15.0.25",
     "@types/react-addons-css-transition-group": "^15.0.2",
     "@types/react-dom": "^15.5.0",
+    "@types/react-transition-group": "^1.1.0",
     "@types/yargs": "^6.6.0",
     "classnames": "^2.2.5",
     "create-react-class": "^15.5.3",
@@ -67,6 +68,7 @@
     "react-dom": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-maskedinput-updated": "^1.0.3",
+    "react-transition-group": "^1.1.3",
     "simplebar": "^2.4.1",
     "tslib": "^1.4.0",
     "yargs": "^8.0.1"
@@ -77,6 +79,7 @@
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^3.0.1",
     "electron-prebuilt-compile": "1.6.8",
+    "mobx-react-devtools": "^4.2.13",
     "tslint": "^4.2.0",
     "typescript": "~2.3.2"
   }
