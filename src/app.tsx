@@ -4,6 +4,7 @@ import DevTools from 'mobx-react-devtools';
 import {
   action,
   observable,
+  IObservableValue,
   ObservableMap,
   whyRun
 } from 'mobx';
@@ -13,18 +14,25 @@ import {
   FocusStyleManager,
   Intent,
   NonIdealState,
+  Position,
+  Popover,
+  Menu,
+  MenuItem,
   Dialog,
   Tab2,
-  Tabs2
+  Tabs2,
+  Tooltip,
 } from '@blueprintjs/core';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Device, devices, HID } from 'node-hid';
 import { HotkeyInput } from './hotkey';
 import { MainToaster } from './toaster';
-import { observer } from 'mobx-react';
+import { observer} from 'mobx-react';
 import { SingleHidKeyReport } from './hidreport';
 import { SingleKeyReportEditor } from './singlekeyreporteditor';
 import { ipcRenderer } from 'electron';
+
+import {MenuSelect} from './components';
 
 
 FocusStyleManager.onlyShowFocusOnTabs();
@@ -37,6 +45,9 @@ export class KeyData {
   @observable address: string;
   @observable path: string;
 
+  @observable keyMode: IObservableValue<string>;
+  @observable lightMode: IObservableValue<string>;
+
   constructor(device: Device) {
     this.name = device.product;
     this.report = new SingleHidKeyReport();
@@ -44,6 +55,7 @@ export class KeyData {
     this.firmware = 'Unknown';
     this.address = '0xA1';
     this.path = device.path;
+    this.keyMode = observable('keypress');
   }
 
   static isSupported(device: Device): boolean {
@@ -77,13 +89,16 @@ let keyReport = new SingleHidKeyReport();
 export class App extends React.Component<undefined, undefined> {
   private store: AppStore;
 
+  // private @computed test = observable('test');
+
+
   constructor() {
     super()
     ipcRenderer.on('usb:change', this.onUsbChange);
     this.store = new AppStore();
   }
 
-  private onUsbChange() : void {
+  private onUsbChange(): void {
     console.log('Change Event');
   }
 
@@ -158,19 +173,47 @@ export class App extends React.Component<undefined, undefined> {
               <EditableText placeholder="Click to name..." maxLength={32} />
             </h1>
             <ul className="pt-list-unstyled">
-              <li><strong>Serial: </strong>5AE3FB6DEEFFB3</li>
-              <li><strong>Firmware: </strong>A01</li>
-              <li><strong>I<sup>2</sup>C Address: </strong>
+              <li>
+                <Tooltip content="On-chip Hardware ID" intent={Intent.PRIMARY} position={Position.LEFT}>
+                  <strong>Serial:&nbsp;</strong>
+                </Tooltip>
+                <span>5AE3FB6DEEFFB3</span>
+              </li>
+              <li>
+                <Tooltip content="Current device firmware" intent={Intent.PRIMARY} position={Position.LEFT}>
+                  <strong>Firmware:&nbsp;</strong>
+                </Tooltip>
+                <span>A01</span>
+              </li>
+              <li><strong>I<sup>2</sup>C Address:&nbsp;</strong>
                 <EditableText placeholder="Address" defaultValue="0x4F" />
+              </li>
+              <li>
+                <strong>Key Mode:&nbsp;</strong>
+                <MenuSelect header="Set Key Mode"
+                  value={observable('keypress')}
+                  options={[
+                    {name: 'Keypress', icon:'pt-icon-new-text-box', value:'keypress'},
+                    {name: 'Macro', icon:'pt-icon-calculator', value:'macro'},
+                    {name: 'None', icon:'pt-icon-disable', value:'none'},
+                  ]} >
+                </MenuSelect>
+              </li>
+              <li>
+                <strong>Light Mode:&nbsp;</strong>
+                <a>
+                  <span>Off</span>
+                  <span className={classNames('pt-icon-caret-down')} />
+                </a>
               </li>
             </ul>
             <Tabs2 id="action-type" className="p-t-md">
-              <Tab2 id="press" title="Keypress" panel={(
+              <Tab2 id="press" title="Key Editor" panel={(
                 <div>
                   <HotkeyInput keyReport={keyReport} />
                   <SingleKeyReportEditor keyReport={keyReport} style={{ paddingTop: 20 }} />
                 </div>)} />
-              <Tab2 id="macro" title="Macro" />
+              <Tab2 id="macro" title="Light Editor" />
               <Tabs2.Expander />
               <Button iconName="help" className="pt-intent-primary pt-minimal" />
               <Dialog iconName="help" isOpen={false} title="Help">
