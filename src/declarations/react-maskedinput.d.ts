@@ -1,9 +1,6 @@
 declare module 'react-maskedinput-updated' {
-  import { ComponentClass, HTMLAttributes } from "react";
 
-  const MaskedInput: MaskedInput;
-  type MaskedInput = ComponentClass<MaskedInput.MaskedInputProps>;
-
+  import { Component, HTMLAttributes } from "react";
   namespace MaskedInput {
     interface FormatCharacter {
       validate(char: string): boolean;
@@ -20,5 +17,8 @@ declare module 'react-maskedinput-updated' {
       placeholderChar?: string;
     }
   }
+
+  class MaskedInputComponent extends Component<MaskedInput.MaskedInputProps, {}> {}
+  export = MaskedInputComponent;
 }
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import * as MaskedInput from 'react-maskedinput-updated';
+// import * as MaskedInput from 'react-maskedinput-updated';
+import MaskedInput = require('react-maskedinput-updated');
 import * as classNames from 'classnames';
 
 function byteArrayToString(data: Uint8Array): string {

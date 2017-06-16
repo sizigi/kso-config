@@ -54,7 +54,7 @@
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/node-hid": "^0.5.1",
     "@types/pure-render-decorator": "^0.2.27",
-    "@types/react": "^15.0.25",
+    "@types/react": "^15.0.29",
     "@types/react-addons-css-transition-group": "^15.0.2",
     "@types/react-dom": "^15.5.0",
     "@types/react-transition-group": "^1.1.0",
