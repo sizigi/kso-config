@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IObservableValue, observable, computed } from 'mobx';
+import { IObservableValue, computed } from 'mobx';
 import {
   Menu,
   MenuItem,

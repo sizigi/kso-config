@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import {Collapse, Colors, Switch} from '@blueprintjs/core';
 
-import {SingleHidKeyReport} from './hidreport';
+import {SingleHidKeyReport} from '../hidreport';
 import {observer} from "mobx-react";
 import {observable} from 'mobx';
-
 import {ByteInput} from './byteinput'
 
 
@@ -17,7 +16,6 @@ export class ISingleKeyReportEditorProps {
   keyReport: SingleHidKeyReport;
   style?: any;
 }
-
 
 @observer
 export class SingleKeyReportEditor extends React.Component<ISingleKeyReportEditorProps, void> {

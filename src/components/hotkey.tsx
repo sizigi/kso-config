@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as keycode from 'keycode';
 
-import {Modkey, SingleHidKeyReport} from './hidreport';
+import {Modkey, SingleHidKeyReport} from '../hidreport';
 import {observer} from 'mobx-react';
 import {computed, observable} from 'mobx';
 
