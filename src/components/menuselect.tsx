@@ -34,19 +34,17 @@ export class MenuSelect extends React.Component<IMenuSelectProps, void> {
     );
 
     return (
-      <Popover position={Position.BOTTOM_RIGHT}
-        content={
+      <Popover position={Position.BOTTOM_RIGHT}>
+          <a tabIndex={0}>
+            <span>{this.getLabelName}</span>
+            <span className='pt-icon-caret-down' />
+          </a>
           <Menu>
             <li className="pt-menu-header">
               <h6>{this.props.header}</h6>
             </li>
             {menuItems}
           </Menu>
-        }>
-        <a>
-          <span>{this.getLabelName}</span>
-          <span className='pt-icon-caret-down' />
-        </a>
       </Popover>
     );
   }

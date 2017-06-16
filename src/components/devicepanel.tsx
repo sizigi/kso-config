@@ -83,12 +83,13 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
             </li>
           </ul>
           <Tabs2 id="action-type" className="p-t-md">
-            <Tab2 id="press" title="Key Editor" panel={(
+            <Tab2 id="press" title="Key Editor" panel={
               <div>
                 <HotkeyInput keyReport={appStore.selectedDevice.report} />
                 <SingleKeyReportEditor keyReport={appStore.selectedDevice.report} style={{ paddingTop: 20 }} />
-              </div>)} />
-            <Tab2 id="macro" title="Light Editor" />
+              </div>} />
+            <Tab2 id="macro" title="Light Editor" panel={<div>
+              </div>} />
             <Tabs2.Expander />
             <Button iconName="help" className="pt-intent-primary pt-minimal" />
             <Dialog iconName="help" isOpen={false} title="Help">

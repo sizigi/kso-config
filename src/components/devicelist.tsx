@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { observer } from 'mobx-react';
-import { NonIdealState } from '@blueprintjs/core';
+import { NonIdealState, Button} from '@blueprintjs/core';
 import { AppStore } from '../store'
 import * as classNames from 'classNames'
 
@@ -9,7 +9,6 @@ import * as classNames from 'classNames'
 export class DeviceList extends React.Component<{appStore: AppStore}, void> {
 
   render() {
-
     const {appStore} = this.props;
 
     let items : Array<JSX.Element> = [];
@@ -17,7 +16,7 @@ export class DeviceList extends React.Component<{appStore: AppStore}, void> {
       return (
         <div
           key={device.path}
-          className={classNames('kso-tab', { 'active': false })}
+          className={classNames('kso-tab', { 'active': appStore.selectedDevice == device })}
           onClick={() => {appStore.selectedDevice = device}}
           >
           <img src="http://placehold.it/48x48" style={{ borderRadius: 48, marginRight: 20 }}></img>
@@ -42,7 +41,14 @@ export class DeviceList extends React.Component<{appStore: AppStore}, void> {
             <NonIdealState
               visual="warning-sign"
               title="No devices found"
-              description="No supported devices were detected. Try plugging one in." />
+              description="No supported devices were detected. Try plugging one in."
+              action={
+                <Button
+                  iconName="refresh"
+                  text="Refresh"
+                  className="pt-minimal"
+                  onClick={this.props.appStore.updateDevices}/>
+              }/>
           </div>)
           : <div></div>}
         </div>
