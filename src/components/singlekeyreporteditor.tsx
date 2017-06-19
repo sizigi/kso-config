@@ -7,7 +7,6 @@ import {observer} from "mobx-react";
 import {observable} from 'mobx';
 import {ByteInput} from './byteinput'
 
-
 class DisplayState {
   @observable showAdvancedState : boolean = true;
 }

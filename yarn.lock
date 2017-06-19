@@ -88,6 +88,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-color@^2.11.3":
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/@types/react-color/-/react-color-2.11.3.tgz#1952833e3f32487c4e81907a2e4e9035a65d92b4"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^15.5.0":
   version "15.5.0"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.0.tgz#7f4fb9613d4051141773242f7b6b5f1a46b34bd9"
@@ -3944,7 +3950,7 @@ lodash@^3.0.1, lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.1.0, lodash@^4.13.0, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.0.1, lodash@^4.1.0, lodash@^4.13.0, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4017,6 +4023,10 @@ map-cache@^0.2.0:
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
+
+material-colors@^1.2.1:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.5.tgz#5292593e6754cb1bcc2b98030e4e0d6a3afc9ea1"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -5067,6 +5077,16 @@ react-addons-css-transition-group@^15.5.2:
   dependencies:
     react-transition-group "^1.2.0"
 
+react-color@^2.12.1:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.12.1.tgz#ef5a4dc4260ed7d1642047d5b6693d68939b19f7"
+  dependencies:
+    lodash "^4.0.1"
+    material-colors "^1.2.1"
+    prop-types "^15.5.4"
+    reactcss "^1.2.0"
+    tinycolor2 "^1.1.2"
+
 react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
@@ -5121,6 +5141,12 @@ react@^15.4.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.7"
+
+reactcss@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/reactcss/-/reactcss-1.2.2.tgz#41b0ef43e01d54880357c34b11ac1531209350ef"
+  dependencies:
+    lodash "^4.0.1"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -6018,6 +6044,10 @@ time-stamp@^1.0.0:
 timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
+
+tinycolor2@^1.1.2:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
 
 tmp@0.0.28:
   version "0.0.28"

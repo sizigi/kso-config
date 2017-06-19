@@ -1,12 +1,12 @@
-
 import * as classNames from 'classNames';
 import * as React from 'react';
 import { AppStore } from '../store';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { HotkeyInput } from './hotkey';
+import { LightEditor } from './lighteditor';
 import { MainToaster } from './toaster';
 import { MenuSelect } from './menuselect';
-import { HotkeyInput } from './hotkey';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import { SingleKeyReportEditor } from './singlekeyreporteditor';
 
 import {
@@ -82,14 +82,13 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
               </a>
             </li>
           </ul>
-          <Tabs2 id="action-type" className="p-t-md">
-            <Tab2 id="press" title="Key Editor" panel={
+          <Tabs2 id="action-type" className="p-t-md" defaultSelectedTabId="light">
+            <Tab2 id="key" title="Key Editor" panel={
               <div>
                 <HotkeyInput keyReport={appStore.selectedDevice.report} />
                 <SingleKeyReportEditor keyReport={appStore.selectedDevice.report} style={{ paddingTop: 20 }} />
               </div>} />
-            <Tab2 id="macro" title="Light Editor" panel={<div>
-              </div>} />
+            <Tab2 id="light" title="Light Editor" panel={<LightEditor appStore={appStore} />} />
             <Tabs2.Expander />
             <Button iconName="help" className="pt-intent-primary pt-minimal" />
             <Dialog iconName="help" isOpen={false} title="Help">
