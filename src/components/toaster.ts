@@ -1,6 +1,6 @@
 import { IToaster, Position, Toaster } from '@blueprintjs/core';
 
 export const MainToaster: IToaster = Toaster.create({
-  className: "toaster-main",
+  className: 'toaster-main',
   position: Position.TOP,
 });

@@ -10,6 +10,8 @@ import {
 
 export class LightData {
   @observable userCurrent: number;
+  @observable userOnStrength: number;
+  @observable userOffStrength: number;
 }
 
 export class KeyData {
@@ -27,7 +29,7 @@ export class KeyData {
   constructor(device: Device) {
     this.name = device.product;
     this.report = new SingleHidKeyReport();
-    this.lightData= new LightData();
+    this.lightData = new LightData();
     this.serial = device.serialNumber;
     this.firmware = 'Unknown';
     this.address = '0xA1';
@@ -52,24 +54,28 @@ export class Color implements IColor {
   @observable public g: number = 0;
   @observable public b: number = 0;
 
-  private static componentToHex(c:number) : string {
-      var hex = c.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
+  private static componentToHex(c: number): string {
+      let hex = c.toString(16);
+      return hex.length == 1 ? '0' + hex : hex;
   }
 
-  @computed public get toHex() : string {
-    return "#" + 
-      Color.componentToHex(this.r) + 
-      Color.componentToHex(this.g) + 
+  @computed public get toHex(): string {
+    return '#' +
+      Color.componentToHex(this.r) +
+      Color.componentToHex(this.g) +
       Color.componentToHex(this.b);
   }
 
-  @action public set(other : IColor) : void {
+  @action public set(other: IColor): void {
     this.r = other.r;
     this.g = other.g;
     this.b = other.b;
   }
 
+}
+
+export interface IAppStoreProp {
+  appStore: AppStore;
 }
 
 export class AppStore {
@@ -79,7 +85,7 @@ export class AppStore {
   constructor() {
     this.devices = observable.map<KeyData>();
     // this.selectedDevice = null;
-    this.selectedDevice = new KeyData({product: ""});
+    this.selectedDevice = new KeyData({product: ''});
   }
 
   @action.bound public updateDevices(): void {
@@ -89,7 +95,7 @@ export class AppStore {
     this.devices.clear();
 
     for (let d of allHidDevices) {
-      if (!KeyData.isSupported(d)) continue;
+      if (!KeyData.isSupported(d)) {continue; }
       this.devices.set(d.path, new KeyData(d));
     }
   }
