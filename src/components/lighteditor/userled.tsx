@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Colors, Slider, Switch, Collapse } from '@blueprintjs/core';
-import { IAppStoreProp, KeyData } from '../../store';
+import { IAppStoreProp} from '../../store';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
