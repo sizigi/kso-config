@@ -115,9 +115,14 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
         </div>
       </div>;
     } else {
-      element = <NonIdealState
-        visual="pt-icon-calculator"
-        />
+      element = (<NonIdealState
+        visual='pt-icon-calculator'
+        action={this.props.appStore.warning 
+          ? (<div className='pt-callout pt-icon-info-sign'>
+              <h5>Device Disconnected</h5>
+              <span>The previously selected device is no longer detected.</span>
+        </div>) : undefined}
+        />)
     }
 
     return element;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import DevTools from 'mobx-react-devtools';
 import { ipcRenderer } from 'electron';
 import { Provider, observer } from 'mobx-react';
+import { action } from 'mobx';
 import {
   Colors,
   FocusStyleManager,
@@ -22,10 +23,12 @@ export class App extends React.Component<undefined, undefined> {
     super()
     ipcRenderer.on('usb:change', this.onUsbChange);
     this.appStore = new AppStore();
+    this.appStore.updateDevices();
   }
 
+  @action.bound
   private onUsbChange(): void {
-    console.log('Change Event');
+    this.appStore.updateDevices();
   }
 
   render() {

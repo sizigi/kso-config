@@ -39,8 +39,8 @@ export class KeyData {
   }
 
   static isSupported(device: Device): boolean {
-    return true;
-    // return /USB/.test(device.product);
+    return device.vendorId == 0x1209 && device.productId == 0x5261
+    // return true;
   }
 }
 
@@ -82,22 +82,27 @@ export interface IAppStoreProp {
 export class AppStore {
   @observable devices: ObservableMap<KeyData>;
   @observable selectedDevice: KeyData | null;
+  @observable warning: boolean;
 
   constructor() {
     this.devices = observable.map<KeyData>();
-    // this.selectedDevice = null;
-    this.selectedDevice = new KeyData({product: ''});
+    this.selectedDevice = null;
   }
 
   @action.bound public updateDevices(): void {
-    console.log('updating...');
     let allHidDevices = devices();
-
     this.devices.clear();
 
     for (let d of allHidDevices) {
       if (!KeyData.isSupported(d)) {continue; }
       this.devices.set(d.path, new KeyData(d));
     }
+
+    // selected device has disappeared
+    if(this.selectedDevice != null && !this.devices.has(this.selectedDevice.path)) {
+      this.selectedDevice = null;
+      this.warning = true;
+    }
+
   }
 }
