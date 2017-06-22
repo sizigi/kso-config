@@ -39,7 +39,8 @@ export class KeyData {
   }
 
   static isSupported(device: Device): boolean {
-    return /USB/.test(device.product);
+    return true;
+    // return /USB/.test(device.product);
   }
 }
 
