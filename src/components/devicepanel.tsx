@@ -22,7 +22,7 @@ import {
 } from '@blueprintjs/core';
 
 @observer
-export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
+export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonly<any>> {
   render() {
     const { appStore } = this.props;
 
@@ -52,13 +52,13 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
               <Tooltip content="On-chip Hardware ID" intent={Intent.PRIMARY} position={Position.LEFT}>
                 <strong>Serial:&nbsp;</strong>
               </Tooltip>
-              <span>5AE3FB6DEEFFB3</span>
+              <span>{appStore.selectedDevice.serial}</span>
             </li>
             <li>
               <Tooltip content="Current device firmware" intent={Intent.PRIMARY} position={Position.LEFT}>
                 <strong>Firmware:&nbsp;</strong>
               </Tooltip>
-              <span>A01</span>
+              <span>{appStore.selectedDevice.firmware}</span>
             </li>
             <li><strong>I<sup>2</sup>C Address:&nbsp;</strong>
               <EditableText placeholder="Address" defaultValue="0x4F" />
@@ -117,12 +117,12 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, void> {
     } else {
       element = (<NonIdealState
         visual='pt-icon-calculator'
-        action={this.props.appStore.warning 
+        action={this.props.appStore.warning
           ? (<div className='pt-callout pt-icon-info-sign'>
-              <h5>Device Disconnected</h5>
-              <span>The previously selected device is no longer detected.</span>
-        </div>) : undefined}
-        />)
+            <h5>Device Disconnected</h5>
+            <span>The previously selected device is no longer detected.</span>
+          </div>) : undefined}
+      />)
     }
 
     return element;

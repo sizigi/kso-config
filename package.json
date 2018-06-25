@@ -50,7 +50,6 @@
   "dependencies": {
     "@blueprintjs/core": "^1.17.1",
     "@types/classnames": "^2.2.0",
-    "@types/electron": "^1.4.30",
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/node-hid": "^0.5.1",
     "@types/pure-render-decorator": "^0.2.27",
@@ -67,7 +66,7 @@
     "keycode": "^2.1.9",
     "mobx": "^3.1.10",
     "mobx-react": "^4.1.8",
-    "node-hid": "^0.5.4",
+    "node-hid": "^0.7.2",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.5.2",
     "react-color": "^2.12.1",
@@ -77,17 +76,17 @@
     "react-transition-group": "^1.1.3",
     "simplebar": "^2.4.1",
     "tslib": "^1.4.0",
-    "usb-detection": "^1.4.0",
+    "usb-detection": "^3.1.0",
     "yargs": "^8.0.1"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.5.0",
     "babel-preset-react": "^6.24.1",
-    "electron-forge": "^3.0.1",
-    "electron-prebuilt-compile": "1.6.8",
+    "electron-forge": "^5.2.2",
+    "electron-prebuilt-compile": "1.8.4",
     "mobx-react-devtools": "^4.2.13",
     "tslint": "^4.2.0",
-    "typescript": "~2.3.2"
+    "typescript": "~2.9.1"
   }
 }

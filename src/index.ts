@@ -19,8 +19,11 @@ let mainWindow: Electron.BrowserWindow | null = null;
 const isDevMode = process.execPath.match(/[\\/]electron/);
 if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
+usbDetect.startMonitoring();
+
 usbDetect.on('change', function (device) {
   if (mainWindow != null) {
+    console.log('USB Event Changed');
     mainWindow.webContents.send('usb:change', device);
   }
 });

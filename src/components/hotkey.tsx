@@ -1,22 +1,22 @@
 import * as React from 'react';
 import * as keycode from 'keycode';
 
-import {Modkey, SingleHidKeyReport} from '../hidreport';
-import {observer} from 'mobx-react';
-import {computed, observable} from 'mobx';
+import { Modkey, SingleHidKeyReport } from '../hidreport';
+import { observer } from 'mobx-react';
+import { computed, observable } from 'mobx';
 
 export interface IHotkeyInputProps {
   keyReport: SingleHidKeyReport;
 }
 
 @observer
-export class HotkeyInput extends React.Component<IHotkeyInputProps, void> {
+export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any>> {
 
   @observable private keyList: Array<number>;
   @observable private keyCount: number;
   @observable private modState: number;
 
-  @computed get keyString() : string {
+  @computed get keyString(): string {
     const sb: Array<string> = [];
     const kr = this.props.keyReport;
 
@@ -31,7 +31,7 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, void> {
     if (kr.modState & Modkey.RShift) sb.push('RShift');
 
     for (let key of kr.keys) {
-      if(key != 0) {
+      if (key != 0) {
         let str = keycode(key);
         sb.push(str.charAt(0).toUpperCase() + str.slice(1));
       }

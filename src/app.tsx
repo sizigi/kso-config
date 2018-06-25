@@ -8,10 +8,10 @@ import {
   FocusStyleManager,
 } from '@blueprintjs/core';
 
-import {AppStore} from './store';
-import {DeviceList} from './components/devicelist'
-import {DevicePanel} from './components/devicepanel'
-import {AppMenu} from './components/appmenu'
+import { AppStore } from './store';
+import { DeviceList } from './components/devicelist'
+import { DevicePanel } from './components/devicepanel'
+import { AppMenu } from './components/appmenu'
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -47,11 +47,11 @@ export class App extends React.Component<undefined, undefined> {
                 <div className="pt-navbar-heading pt-text-muted">keyswitch.one</div>
               </div>
               <div className="pt-navbar-group pt-align-right">
-                <AppMenu appStore={this.appStore}/>
+                <AppMenu appStore={this.appStore} />
               </div>
             </div>
             <div style={{ height: 'calc(100vh - 75px)' }} data-simplebar>
-              <DeviceList appStore={this.appStore}/>
+              <DeviceList appStore={this.appStore} />
             </div>
           </nav>
 

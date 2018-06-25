@@ -1,4 +1,4 @@
-import { Device, devices} from 'node-hid';
+import { Device, devices, HID } from 'node-hid';
 import { SingleHidKeyReport } from './hidreport';
 import {
   ObservableMap,
@@ -7,6 +7,7 @@ import {
   action,
   computed,
 } from 'mobx';
+import { toHex } from './util';
 
 export class LightData {
   @observable userCurrent: number;
@@ -26,12 +27,16 @@ export class KeyData {
   @observable keyMode: IObservableValue<string>;
   @observable lightMode: IObservableValue<string>;
 
+  private readonly hid: HID;
+
   constructor(device: Device) {
+    this.hid = new HID(device.path);
+
     this.name = device.product;
     this.report = new SingleHidKeyReport();
     this.lightData = new LightData();
     this.serial = device.serialNumber;
-    this.firmware = 'Unknown';
+    this.firmware = `0x${toHex(device.release)}`;
     this.address = '0xA1';
     this.path = device.path;
     this.keyMode = observable('keypress');
@@ -39,8 +44,7 @@ export class KeyData {
   }
 
   static isSupported(device: Device): boolean {
-    return device.vendorId == 0x1209 && device.productId == 0x5261
-    // return true;
+    return device.vendorId == 0x1209 && device.productId == 0x5261 && device.interface == 1
   }
 }
 
@@ -56,8 +60,8 @@ export class Color implements IColor {
   @observable public b: number = 0;
 
   private static componentToHex(c: number): string {
-      let hex = c.toString(16);
-      return hex.length == 1 ? '0' + hex : hex;
+    let hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
   }
 
   @computed public get toHex(): string {
@@ -94,12 +98,12 @@ export class AppStore {
     this.devices.clear();
 
     for (let d of allHidDevices) {
-      if (!KeyData.isSupported(d)) {continue; }
+      if (!KeyData.isSupported(d)) { continue; }
       this.devices.set(d.path, new KeyData(d));
     }
 
     // selected device has disappeared
-    if(this.selectedDevice != null && !this.devices.has(this.selectedDevice.path)) {
+    if (this.selectedDevice != null && !this.devices.has(this.selectedDevice.path)) {
       this.selectedDevice = null;
       this.warning = true;
     }
