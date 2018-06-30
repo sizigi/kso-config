@@ -66,7 +66,7 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
             <li>
               <strong>Key Mode:&nbsp;</strong>
               <MenuSelect header="Set Key Mode"
-                value={observable('keypress')}
+                value={appStore.selectedDevice.keyMode}
                 options={[
                   { name: 'Keypress', icon: 'pt-icon-new-text-box', value: 'keypress' },
                   { name: 'Macro', icon: 'pt-icon-calculator', value: 'macro' },

@@ -12,7 +12,7 @@ export class DeviceList extends React.Component<{ appStore: AppStore }, Readonly
     const { appStore } = this.props;
 
     let items: Array<JSX.Element> = [];
-    items = appStore.devices.values().map((device) => {
+    items = Array.from(appStore.devices.values()).map((device) => {
       return (
         <div
           key={device.path}

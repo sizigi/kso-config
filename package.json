@@ -64,8 +64,9 @@
     "electron-compile": "^6.4.1",
     "electron-devtools-installer": "^2.0.1",
     "keycode": "^2.1.9",
-    "mobx": "^3.1.10",
-    "mobx-react": "^4.1.8",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
+    "mobx-utils": "^5.0.0",
     "node-hid": "^0.7.2",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.5.2",
@@ -85,7 +86,7 @@
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^5.2.2",
     "electron-prebuilt-compile": "1.8.4",
-    "mobx-react-devtools": "^4.2.13",
+    "mobx-react-devtools": "^5.0.1",
     "tslint": "^4.2.0",
     "typescript": "~2.9.1"
   }

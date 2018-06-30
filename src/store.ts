@@ -39,8 +39,8 @@ export class KeyData {
     this.firmware = `0x${toHex(device.release)}`;
     this.address = '0xA1';
     this.path = device.path;
-    this.keyMode = observable('keypress');
-    this.lightMode = observable('onpress');
+    this.keyMode = observable.box('keypress');
+    this.lightMode = observable.box('onpress');
   }
 
   static isSupported(device: Device): boolean {
@@ -84,12 +84,12 @@ export interface IAppStoreProp {
 }
 
 export class AppStore {
-  @observable devices: ObservableMap<KeyData>;
+  @observable devices: ObservableMap<string, KeyData>;
   @observable selectedDevice: KeyData | null;
   @observable warning: boolean;
 
   constructor() {
-    this.devices = observable.map<KeyData>();
+    this.devices = observable.map<string, KeyData>();
     this.selectedDevice = null;
   }
 
