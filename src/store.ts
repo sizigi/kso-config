@@ -7,7 +7,11 @@ import {
   action,
   computed,
 } from 'mobx';
+import {
+  asyncAction
+} from 'mobx-utils';
 import { toHex } from './util';
+import { KSO, KSOConfig } from './kso';
 
 export class LightData {
   @observable userCurrent: number;
@@ -27,10 +31,15 @@ export class KeyData {
   @observable keyMode: IObservableValue<string>;
   @observable lightMode: IObservableValue<string>;
 
-  private readonly hid: HID;
+  @observable config: KSOConfig;
+
+  public loading: boolean;
+  private readonly kso: KSO;
 
   constructor(device: Device) {
-    this.hid = new HID(device.path);
+    this.loading = true;
+
+    this.kso = new KSO(device.path);
 
     this.name = device.product;
     this.report = new SingleHidKeyReport();
@@ -41,6 +50,12 @@ export class KeyData {
     this.path = device.path;
     this.keyMode = observable.box('keypress');
     this.lightMode = observable.box('onpress');
+  }
+
+  @asyncAction
+  public *fetch_data() {
+    this.config = yield this.kso.get_config();
+    this.loading = false;
   }
 
   static isSupported(device: Device): boolean {
@@ -99,7 +114,10 @@ export class AppStore {
 
     for (let d of allHidDevices) {
       if (!KeyData.isSupported(d)) { continue; }
-      this.devices.set(d.path, new KeyData(d));
+
+      const kd = new KeyData(d);
+      kd.fetch_data();
+      this.devices.set(d.path, kd);
     }
 
     // selected device has disappeared

@@ -108,6 +108,7 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
         type="text"
         value={this.keyString}
         placeholder="Type hotkey..."
+        onChange={() => { }}
         onKeyDown={this.handleKeyDown.bind(this)}
         onKeyUp={this.handleKeyUp.bind(this)}
       />

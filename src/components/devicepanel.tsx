@@ -28,7 +28,7 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
 
     let element: JSX.Element;
 
-    if (appStore.selectedDevice != null) {
+    if (appStore.selectedDevice !== null && appStore.selectedDevice.loading !== true) {
       element = <div>
         <div id='title-bar' />
         <div style={{ padding: 20, paddingTop: 0 }}>
@@ -82,11 +82,11 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
               </a>
             </li>
           </ul>
-          <Tabs2 id="action-type" className="p-t-md" defaultSelectedTabId="light">
+          <Tabs2 id="action-type" className="p-t-md" defaultSelectedTabId="key">
             <Tab2 id="key" title="Key Editor" panel={
               <div>
-                <HotkeyInput keyReport={appStore.selectedDevice.report} />
-                <SingleKeyReportEditor keyReport={appStore.selectedDevice.report} style={{ paddingTop: 20 }} />
+                <HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />
+                <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />
               </div>} />
             <Tab2 id="light" title="Light Editor" panel={<LightEditor appStore={appStore} />} />
             <Tabs2.Expander />

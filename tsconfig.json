@@ -16,7 +16,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
-    "target": "es2015",
+    "target": "es2017",
+    "lib": [
+      "es2017"
+    ],
     "experimentalDecorators": true,
     "jsx": "react"
   },

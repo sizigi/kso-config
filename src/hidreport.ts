@@ -20,8 +20,8 @@ export const enum Modkey {
 export class SingleHidKeyReport {
   @observable private rawData: Uint8Array;
 
-  constructor() {
-    this.rawData = new Uint8Array(8);
+  constructor(buffer?: Uint8Array) {
+    this.rawData = buffer || new Uint8Array(8);
   }
 
   @computed get shiftState(): boolean { return (this.rawData[0] & Modkey.Shift) > 0; }

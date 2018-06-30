@@ -51,6 +51,7 @@
     "@blueprintjs/core": "^1.17.1",
     "@types/classnames": "^2.2.0",
     "@types/electron-devtools-installer": "^2.0.2",
+    "@types/node": "^10.5.1",
     "@types/node-hid": "^0.5.1",
     "@types/pure-render-decorator": "^0.2.27",
     "@types/react": "^15.0.29",
@@ -87,7 +88,7 @@
     "electron-forge": "^5.2.2",
     "electron-prebuilt-compile": "1.8.4",
     "mobx-react-devtools": "^5.0.1",
-    "tslint": "^4.2.0",
+    "tslint": "^5.10.0",
     "typescript": "~2.9.1"
   }
 }

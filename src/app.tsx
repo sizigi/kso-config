@@ -16,7 +16,7 @@ import { AppMenu } from './components/appmenu'
 FocusStyleManager.onlyShowFocusOnTabs();
 
 @observer
-export class App extends React.Component<undefined, undefined> {
+export class App extends React.Component<{}, {}> {
   private appStore: AppStore;
 
   constructor() {

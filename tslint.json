@@ -1,6 +1,6 @@
 {
   "rules": {
-    "curly": true,
+    "curly": [true, "ignore-same-line"],
     "eofline": false,
     "align": [true, "parameters"],
     "class-name": true,
