@@ -1,57 +1,53 @@
 import * as HID from 'node-hid';
 import * as fs from 'fs';
 import { platform } from 'process';
-import { TextDecoder, TextEncoder } from 'util';
 import { computed, observable } from 'mobx';
 import { safe_set } from './util';
 import { SingleHidKeyReport } from './hidreport';
 
 export class KSOConfig {
 
-  set mode(id: number) { this.buffer[0] = id; }
-  set i2c_address(address: number) { this.buffer[1] = address; }
-  set keyreport(report: SingleHidKeyReport) {
-    this.buffer.set(report.packet, 8);
+  @observable public mode: number;
+  @observable public i2c_address: number;
+  @observable public name: string;
+  @observable public keyreport: SingleHidKeyReport;
+
+  @computed get buffer(): Uint8Array {
+    const b = new Uint8Array(32);
+
+    b.set([this.mode], 0);
+    b.set([this.i2c_address], 1);
+    b.set(this.keyreport.packet, 8);
+    b.set(new TextEncoder().encode(
+      this.name.slice(0, 15).concat('\0')
+    ), 16);
+
+    return b;
   }
 
-  set name(val: string) {
-    this.buffer.set(
-      new TextEncoder()
-        .encode(
-          val.slice(0, 15).concat('\0')
-        ), 16);
+  set buffer(b: Uint8Array) {
+    this.mode = b[0];
+    this.i2c_address = b[1];
+    this.keyreport = new SingleHidKeyReport(b.subarray(8, 16));
+    this.name = new TextDecoder('utf-8').decode(
+      b.subarray(16, 32)
+    ).split('\0')[0];
   }
 
-  @observable public readonly buffer: Uint8Array;
-  @computed get mode(): number { return this.buffer[0]; }
-  @computed get i2c_address(): number { return this.buffer[1]; }
-  @computed get keyreport(): SingleHidKeyReport {
-    return new SingleHidKeyReport(this.buffer.subarray(8, 16));
-  }
-  @computed get name(): string {
-    return new TextDecoder('utf-8')
-      .decode(
-        this.buffer.subarray(16, 32)
-      ).split('\0')[0];
-  }
-
-
-  constructor(buffer?: Uint8Array) {
-    this.buffer = buffer || new Uint8Array(32);
+  constructor(data?: Uint8Array) {
+    this.buffer = data || new Uint8Array(32);
   }
 }
-
 
 function num_to_bytearray_be(data: number): Uint8Array {
   const rv = [];
   while (data != 0) {
-    let byte = data & 0xFF
+    let byte = data & 0xFF;
     rv.unshift(byte);
-    data = data >> 8
+    data = data >> 8;
   }
   return new Uint8Array(rv);
 }
-
 
 abstract class BaseHIDDevice {
   protected readonly hid: HID.HID;
@@ -70,7 +66,7 @@ abstract class BaseHIDDevice {
         if (err) reject(err);
         resolve(Uint8Array.from(data));
       });
-    })
+    });
   }
 
   protected _write(data: Uint8Array): void {
@@ -136,7 +132,6 @@ export class KSO extends BaseHIDDevice {
     request.set(config.buffer, 2);
     this._write(request);
   }
-
 
   public async read_memory(address: number, bytes: number): Promise<Uint8Array> {
 

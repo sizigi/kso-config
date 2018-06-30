@@ -3,9 +3,7 @@ import * as React from 'react';
 import { AppStore } from '../store';
 import { HotkeyInput } from './hotkey';
 import { LightEditor } from './lighteditor';
-import { MainToaster } from './toaster';
 import { MenuSelect } from './menuselect';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { SingleKeyReportEditor } from './singlekeyreporteditor';
 
@@ -33,39 +31,33 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
         <div id='title-bar' />
         <div style={{ padding: 20, paddingTop: 0 }}>
           <Button
-            style={{ float: "right" }}
-            text="Save"
-            onClick={() => {
-              MainToaster.show({
-                message: "Saved!",
-                intent: Intent.SUCCESS,
-                iconName: "floppy-disk",
-              })
-            }}
+            style={{ float: 'right' }}
+            text='Save'
+            onClick={appStore.selectedDevice.save_data.bind(appStore.selectedDevice)}
             iconName='floppy-disk'
             className={classNames('pt-button', 'pt-large', 'pt-intent-primary')} />
           <h1>
-            <EditableText placeholder="Click to name..." maxLength={32} />
+            <EditableText placeholder='Click to name...' maxLength={32} />
           </h1>
-          <ul className="pt-list-unstyled">
+          <ul className='pt-list-unstyled'>
             <li>
-              <Tooltip content="On-chip Hardware ID" intent={Intent.PRIMARY} position={Position.LEFT}>
+              <Tooltip content='On-chip Hardware ID' intent={Intent.PRIMARY} position={Position.LEFT}>
                 <strong>Serial:&nbsp;</strong>
               </Tooltip>
               <span>{appStore.selectedDevice.serial}</span>
             </li>
             <li>
-              <Tooltip content="Current device firmware" intent={Intent.PRIMARY} position={Position.LEFT}>
+              <Tooltip content='Current device firmware' intent={Intent.PRIMARY} position={Position.LEFT}>
                 <strong>Firmware:&nbsp;</strong>
               </Tooltip>
               <span>{appStore.selectedDevice.firmware}</span>
             </li>
             <li><strong>I<sup>2</sup>C Address:&nbsp;</strong>
-              <EditableText placeholder="Address" defaultValue="0x4F" />
+              <EditableText placeholder='Address' defaultValue='0x4F' />
             </li>
             <li>
               <strong>Key Mode:&nbsp;</strong>
-              <MenuSelect header="Set Key Mode"
+              <MenuSelect header='Set Key Mode'
                 value={appStore.selectedDevice.keyMode}
                 options={[
                   { name: 'Keypress', icon: 'pt-icon-new-text-box', value: 'keypress' },
@@ -82,17 +74,17 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
               </a>
             </li>
           </ul>
-          <Tabs2 id="action-type" className="p-t-md" defaultSelectedTabId="key">
-            <Tab2 id="key" title="Key Editor" panel={
+          <Tabs2 id='action-type' className='p-t-md' defaultSelectedTabId='key'>
+            <Tab2 id='key' title='Key Editor' panel={
               <div>
                 <HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />
                 <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />
               </div>} />
-            <Tab2 id="light" title="Light Editor" panel={<LightEditor appStore={appStore} />} />
+            <Tab2 id='light' title='Light Editor' panel={<LightEditor appStore={appStore} />} />
             <Tabs2.Expander />
-            <Button iconName="help" className="pt-intent-primary pt-minimal" />
-            <Dialog iconName="help" isOpen={false} title="Help">
-              <div className="pt-dialog-body">
+            <Button iconName='help' className='pt-intent-primary pt-minimal' />
+            <Dialog iconName='help' isOpen={false} title='Help'>
+              <div className='pt-dialog-body'>
                 <h5>Keypress</h5>
                 <p>The keypress setting sends a keydown when the switch is depressed,
                   and a keyup when the switch is released, just like a normal keyboard.
@@ -102,11 +94,11 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
                   Unicode is transmitted via unicode codes on windows.
                 </p>
               </div>
-              <div className="pt-dialog-footer">
-                <div className="pt-dialog-footer-actions">
+              <div className='pt-dialog-footer'>
+                <div className='pt-dialog-footer-actions'>
                   <Button
                     intent={Intent.PRIMARY}
-                    text="OK"
+                    text='OK'
                   />
                 </div>
               </div>
@@ -122,7 +114,7 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
             <h5>Device Disconnected</h5>
             <span>The previously selected device is no longer detected.</span>
           </div>) : undefined}
-      />)
+      />);
     }
 
     return element;

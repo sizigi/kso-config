@@ -20,7 +20,7 @@ export class App extends React.Component<{}, {}> {
   private appStore: AppStore;
 
   constructor() {
-    super()
+    super();
     ipcRenderer.on('usb:change', this.onUsbChange);
     this.appStore = new AppStore();
     this.appStore.updateDevices();
@@ -43,10 +43,10 @@ export class App extends React.Component<{}, {}> {
           <DevTools />
           <nav style={{ flex: 1, backgroundColor: Colors.LIGHT_GRAY1, height: '100vh' }}>
             <div className='pt-navbar pt-dark kso-navbar'>
-              <div className="pt-navbar-group pt-align-left">
-                <div className="pt-navbar-heading pt-text-muted">keyswitch.one</div>
+              <div className='pt-navbar-group pt-align-left'>
+                <div className='pt-navbar-heading pt-text-muted'>keyswitch.one</div>
               </div>
-              <div className="pt-navbar-group pt-align-right">
+              <div className='pt-navbar-group pt-align-right'>
                 <AppMenu appStore={this.appStore} />
               </div>
             </div>

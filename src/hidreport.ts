@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, computed } from 'mobx';
 
 export const enum Modkey {
   None = 0,
@@ -28,29 +28,29 @@ export class SingleHidKeyReport {
   @computed get ctrlState(): boolean { return (this.rawData[0] & Modkey.Ctrl) > 0; }
   @computed get guiState(): boolean { return (this.rawData[0] & Modkey.Gui) > 0; }
   @computed get altState(): boolean { return (this.rawData[0] & Modkey.Alt) > 0; }
-  @computed get packet() : Uint8Array { return this.rawData; }
-  @computed get keys() : Uint8Array { return this.rawData.slice(2); }
+  @computed get packet(): Uint8Array { return this.rawData; }
+  @computed get keys(): Uint8Array { return this.rawData.slice(2); }
 
-  set packet(d:Uint8Array) {
+  set packet(d: Uint8Array) {
     this.rawData = d;
   }
 
-  public clear() : void {
+  public clear(): void {
     this.rawData = new Uint8Array(8);
   }
 
-  public setKeys(...keys : Array<number>) : void{
+  public setKeys(...keys: Array<number>): void {
     console.log(keys);
 
     let k = keys.slice(0, 6);
-    for(let i=k.length; i<6; i++ ){
+    for (let i = k.length; i < 6; i++) {
       k.push(0);
     }
 
     this.rawData = new Uint8Array([
       this.rawData[0],
       this.rawData[1],
-      ...k])
+      ...k]);
   }
 
   set modState(state: Modkey) {

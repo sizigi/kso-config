@@ -1,5 +1,4 @@
 import { Device, devices, HID } from 'node-hid';
-import { SingleHidKeyReport } from './hidreport';
 import {
   ObservableMap,
   IObservableValue,
@@ -12,6 +11,8 @@ import {
 } from 'mobx-utils';
 import { toHex } from './util';
 import { KSO, KSOConfig } from './kso';
+import { MainToaster } from './components/toaster';
+import { Intent } from '@blueprintjs/core';
 
 export class LightData {
   @observable userCurrent: number;
@@ -21,7 +22,6 @@ export class LightData {
 
 export class KeyData {
   @observable name: string;
-  @observable report: SingleHidKeyReport;
   @observable lightData: LightData;
   @observable serial: string;
   @observable firmware: string;
@@ -42,7 +42,6 @@ export class KeyData {
     this.kso = new KSO(device.path);
 
     this.name = device.product;
-    this.report = new SingleHidKeyReport();
     this.lightData = new LightData();
     this.serial = device.serialNumber;
     this.firmware = `0x${toHex(device.release)}`;
@@ -56,6 +55,16 @@ export class KeyData {
   public *fetch_data() {
     this.config = yield this.kso.get_config();
     this.loading = false;
+  }
+
+  @asyncAction
+  public *save_data() {
+    yield this.kso.set_config(this.config);
+    MainToaster.show({
+      message: 'Saved!',
+      intent: Intent.SUCCESS,
+      iconName: 'floppy-disk',
+    });
   }
 
   static isSupported(device: Device): boolean {
