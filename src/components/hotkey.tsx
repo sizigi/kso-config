@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as keycode from 'keycode';
 
+import { eventToUsb, usbToEvent } from '../keycode';
+
 import { Modkey, SingleHidKeyReport } from '../hidreport';
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
@@ -12,6 +14,7 @@ export interface IHotkeyInputProps {
 @observer
 export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any>> {
 
+  /** Array of Keycode */
   @observable private keyList: Array<number>;
   @observable private keyCount: number;
   @observable private modState: number;
@@ -31,10 +34,16 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
     if (kr.modState & Modkey.RShift) sb.push('RShift');
 
     for (let key of kr.keys) {
+
       if (key != 0) {
-        let str = keycode(key);
-        sb.push(str.charAt(0).toUpperCase() + str.slice(1));
+        let str = keycode(usbToEvent[key]);
+        if (str != undefined) {
+          sb.push(str.charAt(0).toUpperCase() + str.slice(1));
+        } else {
+          sb.push('�');
+        }
       }
+
     }
 
     return sb.join('+');
@@ -69,7 +78,8 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
   private handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     event.preventDefault();
 
-    const [mod, key] = this.getKey(event);
+    const [mod, jsKey] = this.getKey(event);
+    const key = eventToUsb[jsKey || -1];
 
     // need to reset?
     if (this.keyCount <= 0) {
@@ -79,7 +89,7 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
     }
 
     // valid new normal key
-    if (key != null && this.keyList.indexOf(key) == -1) {
+    if (key != undefined && this.keyList.indexOf(key) == -1) {
       this.keyList = [...this.keyList, key];
       this.keyCount++;
     }
@@ -94,7 +104,6 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
     this.props.keyReport.modState = this.modState;
   }
 
-
   private handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
     event.preventDefault();
     this.keyCount -= 1;
@@ -103,15 +112,15 @@ export class HotkeyInput extends React.Component<IHotkeyInputProps, Readonly<any
   public render() {
     return (
       <input
-        className="pt-large pt-input pt-fill"
+        className='pt-large pt-input pt-fill'
         tabIndex={-1}
-        type="text"
+        type='text'
         value={this.keyString}
-        placeholder="Type hotkey..."
-        onChange={() => { }}
+        placeholder='Type hotkey...'
+        onChange={() => { return; }}
         onKeyDown={this.handleKeyDown.bind(this)}
         onKeyUp={this.handleKeyUp.bind(this)}
       />
-    )
+    );
   }
 }

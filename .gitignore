@@ -2,3 +2,5 @@ node_modules
 out
 mock/kso
 *.o
+data/mapping.json
+yarn-error.log

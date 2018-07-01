@@ -8,4 +8,5 @@ The configuration utility for <keyswitch.one>. Still a work-in-progress.
 
 1. Clone the repository.
 2. `yarn install` the dependencies.
-3. `electron-forge start` the application.
+3. `yarn compile` the data files.
+4. `electron-forge start` the application.
