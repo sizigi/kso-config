@@ -33,7 +33,7 @@ export class KeyData {
 
   @observable config: KSOConfig;
 
-  public loading: boolean;
+  @observable public loading: boolean;
   private readonly kso: KSO;
 
   constructor(device: Device) {
@@ -47,7 +47,7 @@ export class KeyData {
     this.firmware = `0x${toHex(device.release)}`;
     this.address = '0xA1';
     this.path = device.path;
-    this.keyMode = observable.box('keypress');
+    this.keyMode = observable.box('macro');
     this.lightMode = observable.box('onpress');
   }
 
@@ -121,18 +121,27 @@ export class AppStore {
     let allHidDevices = devices();
     this.devices.clear();
 
+    let deviceCount = 0;
+
     for (let d of allHidDevices) {
       if (!KeyData.isSupported(d)) { continue; }
 
       const kd = new KeyData(d);
       kd.fetch_data();
       this.devices.set(d.path, kd);
+      deviceCount++;
     }
 
     // selected device has disappeared
     if (this.selectedDevice != null && !this.devices.has(this.selectedDevice.path)) {
       this.selectedDevice = null;
       this.warning = true;
+      return;
+    }
+
+    // if there's only one device, auto-select it
+    if (this.selectedDevice == null && deviceCount == 1) {
+      this.selectedDevice = this.devices.values().next().value;
     }
 
   }

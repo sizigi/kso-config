@@ -2,6 +2,7 @@ import * as classNames from 'classNames';
 import * as React from 'react';
 import { AppStore } from '../store';
 import { HotkeyInput } from './hotkey';
+import { MacrokeyInput } from './macrokey';
 import { LightEditor } from './lighteditor';
 import { MenuSelect } from './menuselect';
 import { observer } from 'mobx-react';
@@ -62,6 +63,7 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
                 options={[
                   { name: 'Keypress', icon: 'pt-icon-new-text-box', value: 'keypress' },
                   { name: 'Macro', icon: 'pt-icon-calculator', value: 'macro' },
+                  { name: 'Morse', icon: 'pt-icon-group-objects', value: 'morse' },
                   { name: 'None', icon: 'pt-icon-disable', value: 'none' },
                 ]} >
               </MenuSelect>
@@ -77,8 +79,16 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
           <Tabs2 id='action-type' className='p-t-md' defaultSelectedTabId='key'>
             <Tab2 id='key' title='Key Editor' panel={
               <div>
-                <HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />
-                <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />
+                {appStore.selectedDevice.keyMode.get() === 'keypress' ?
+                  [<HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />,
+                  <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />]
+                  : undefined}
+                {appStore.selectedDevice.keyMode.get() === 'none' ?
+                  <NonIdealState className='p-t-md' visual='pt-icon-disable' title='Key Action Off' />
+                  : undefined}
+                {appStore.selectedDevice.keyMode.get() === 'macro' ?
+                  <MacrokeyInput />
+                  : undefined}
               </div>} />
             <Tab2 id='light' title='Light Editor' panel={<LightEditor appStore={appStore} />} />
             <Tabs2.Expander />
