@@ -9,6 +9,19 @@ class LedColorPickerState {
   @observable color: Color = new Color();
 }
 
+const palette = [
+  '#000000',
+  '#2c3e50',
+  '#8e44ad',
+  '#2980b9',
+  '#27ae60',
+  '#16a085',
+  '#f39c12',
+  '#d35400',
+  '#c0392b',
+  '#bdc3c7',
+];
+
 @observer
 export class LedColorPicker extends React.Component<{ label: string | JSX.Element }, {}> {
 
@@ -39,12 +52,15 @@ export class LedColorPicker extends React.Component<{ label: string | JSX.Elemen
               <option>Pulse Color</option>
             </select>
           </div>
-          <Popover position={Position.BOTTOM} className='pt-dark'>
+          <Popover
+            position={Position.RIGHT} className='pt-dark'>
             <Button
               iconName='tint'
               style={{ backgroundColor: this.pickerState.color.toHex }}
             />
             <BlockPicker
+              triangle='hide'
+              colors={palette}
               color={this.pickerState.color}
               onChangeComplete={this.handleColorChange}
             />
@@ -53,7 +69,7 @@ export class LedColorPicker extends React.Component<{ label: string | JSX.Elemen
           <NumericInput
             leftIconName='time'
             placeholder='1000ms'
-            />
+          />
         </div>
       </div>
     </div>);

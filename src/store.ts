@@ -48,7 +48,7 @@ export class KeyData {
     this.address = '0xA1';
     this.path = device.path;
     this.keyMode = observable.box('macro');
-    this.lightMode = observable.box('onpress');
+    this.lightMode = observable.box('rgb');
   }
 
   @asyncAction

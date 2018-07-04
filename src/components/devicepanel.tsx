@@ -65,23 +65,27 @@ export class DevicePanel extends React.Component<{ appStore: AppStore }, Readonl
                   { name: 'Macro', icon: 'pt-icon-calculator', value: 'macro' },
                   { name: 'Morse', icon: 'pt-icon-group-objects', value: 'morse' },
                   { name: 'None', icon: 'pt-icon-disable', value: 'none' },
-                ]} >
-              </MenuSelect>
+                ]} />
             </li>
             <li>
               <strong>Light Mode:&nbsp;</strong>
-              <a>
-                <span>Off</span>
-                <span className={classNames('pt-icon-caret-down')} />
-              </a>
+              <MenuSelect header='Set Key Mode'
+                value={appStore.selectedDevice.lightMode}
+                options={[
+                  { name: 'Onboard RGB', icon: 'pt-icon-settings', value: 'rgb' },
+                  { name: 'Soldered LED', icon: 'pt-icon-flash', value: 'led' },
+                  { name: 'Off', icon: 'pt-icon-disable', value: 'none' },
+                ]} />
             </li>
           </ul>
           <Tabs2 id='action-type' className='p-t-md' defaultSelectedTabId='key'>
             <Tab2 id='key' title='Key Editor' panel={
               <div>
                 {appStore.selectedDevice.keyMode.get() === 'keypress' ?
-                  [<HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />,
-                  <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />]
+                  <div>
+                    <HotkeyInput keyReport={appStore.selectedDevice.config.keyreport} />
+                    <SingleKeyReportEditor keyReport={appStore.selectedDevice.config.keyreport} style={{ paddingTop: 20 }} />
+                  </div>
                   : undefined}
                 {appStore.selectedDevice.keyMode.get() === 'none' ?
                   <NonIdealState className='p-t-md' visual='pt-icon-disable' title='Key Action Off' />
